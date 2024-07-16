@@ -8,7 +8,6 @@ namespace CaseWixot.Core.Scripts
     public class ProjectileFactory : IProjectileFactory
     {
         private readonly Transform _bulletPrefab;
-        private Dictionary<IProjectile, Transform> _activeProjectiles = new Dictionary<IProjectile, Transform>();
 
         public ProjectileFactory(Transform bulletPrefab)
         {

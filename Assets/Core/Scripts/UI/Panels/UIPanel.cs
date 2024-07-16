@@ -13,10 +13,4 @@ namespace CaseWixot.Core.Scripts.UI
     {
         
     }
-
-    public interface IPowerUpPublisher : IUIPublisher
-    {
-        public event Action<int> PowerUpActivated;
-    }
-
 }

@@ -18,8 +18,6 @@ namespace CaseWixot.Core.Scripts
             _bulletObj = bulletObj;
             _onJourneyComplete = onJourneyComplete;
         }
-        
-        
         public void Launch(Vector3 initPos, Vector3 direction)
         {
             _bulletObj.gameObject.SetActive(true);

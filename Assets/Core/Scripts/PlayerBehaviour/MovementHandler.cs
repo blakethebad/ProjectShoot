@@ -37,7 +37,6 @@ namespace CaseWixot.Core.Scripts
             {
                 _isMoving = true;
                 _position = Input.mousePosition;
-                Debug.LogError(_position);
 
             }
             if (Input.GetMouseButtonUp(0))

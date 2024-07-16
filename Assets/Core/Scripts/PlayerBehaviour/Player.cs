@@ -9,17 +9,16 @@ namespace CaseWixot.Core.Scripts
         private IWeapon _weapon;
         private IMoveHandler _moveHandler;
 
-        private IPowerUp[] _ownedPowerUps = new IPowerUp[5];
+        private IPowerUp[] _ownedPowerUps;
         private bool[] _activePowerUps;
 
-        public void InitPlayer(IPowerUpPublisher powerUpPublisher, IWeapon weapon, IMoveHandler moveHandler, params IPowerUp[] powerUps)
+        public void InitPlayer(IWeapon weapon, IMoveHandler moveHandler, params IPowerUp[] powerUps)
         {
             _weapon = weapon;
             _moveHandler = moveHandler;
 
             _ownedPowerUps = powerUps;
 
-            powerUpPublisher.PowerUpActivated += ActivatePowerUp;
 
             StartCoroutine(_weapon.Shoot(moveHandler));
         }

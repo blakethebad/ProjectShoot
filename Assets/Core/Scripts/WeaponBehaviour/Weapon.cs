@@ -8,7 +8,7 @@ namespace CaseWixot.Core.Scripts
     public class Weapon : IWeapon
     {
         private IProjectileFactory _projectileFactory;
-        private IWeaponStrategy _currentStrategy = new BasicFire();
+        private IWeaponStrategy _currentStrategy;
         private float _shootInterval = 2f;
         private bool _isDoubleShot = false;
 
