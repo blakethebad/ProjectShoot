@@ -4,8 +4,8 @@ namespace CaseWixot.Core.Scripts.PowerUps
 {
     public class SpeedBooster : PowerUp<IMoveHandler>
     {
-        private int _fastSpeed;
-        private int _normalSpeed;
+        private int _fastSpeed = 3;
+        private int _normalSpeed = 1;
         
         public override void Enable()
         {

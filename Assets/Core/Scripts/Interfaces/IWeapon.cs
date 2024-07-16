@@ -10,9 +10,4 @@ namespace CaseWixot.Core.Scripts.Interfaces
         void SetBulletInterval(float interval);
         void SetDoubleShot(bool isDoubleShot);
     }
-    
-    public interface IBulletSender
-    {
-    
-    }
 }

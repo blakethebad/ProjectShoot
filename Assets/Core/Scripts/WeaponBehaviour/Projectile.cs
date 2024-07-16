@@ -2,6 +2,7 @@
 using CaseWixot.Core.Scripts.Interfaces;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
 
 namespace CaseWixot.Core.Scripts

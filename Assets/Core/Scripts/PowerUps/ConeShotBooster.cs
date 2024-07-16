@@ -2,20 +2,25 @@
 
 namespace CaseWixot.Core.Scripts.PowerUps
 {
-    public class ConeShotBooster : PowerUp<IWeapon>
+    public sealed class ConeShotBooster : PowerUp<IWeapon>
     {
-        public ConeShotBooster(IWeapon modifiableEntity) : base(modifiableEntity)
+        private readonly IWeaponStrategy _initialStrategy;
+        private readonly IWeaponStrategy _boostedStrategy;
+        
+        public ConeShotBooster(IWeapon modifiableEntity, IWeaponStrategy initialStrategy, IWeaponStrategy boostedStrategy) : base(modifiableEntity)
         {
+            _initialStrategy = initialStrategy;
+            _boostedStrategy = boostedStrategy;
         }
 
         public override void Enable()
         {
-            ModifiedEntity.SetStrategy(new ConeFire());
+            ModifiedEntity.SetStrategy(_boostedStrategy);
         }
 
         public override void Disable()
         {
-            ModifiedEntity.SetStrategy(new BasicFire());
+            ModifiedEntity.SetStrategy(_initialStrategy);
         }
     }
 }

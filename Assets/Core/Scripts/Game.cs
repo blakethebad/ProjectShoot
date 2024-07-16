@@ -5,16 +5,19 @@ using CaseWixot.Core.Scripts.PowerUps;
 using CaseWixot.Core.Scripts.States;
 using CaseWixot.Core.Scripts.UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace CaseWixot.Core.Scripts
 {
     public class Game : MonoBehaviour
     {
         //Will be moved to asset management
+        [SerializeField] private CameraHandler _camera;
         [SerializeField] private Transform _playerPrefab;
         [SerializeField] private Transform _projectilePrefab;
         [SerializeField] private GameWindow _gameWindow;
-        //Will be moved to asset management
+        [SerializeField] private InputAction _positionInput;
+        [SerializeField] private InputAction _pressInput;
 
         private Player _activePlayer;
 
@@ -25,36 +28,45 @@ namespace CaseWixot.Core.Scripts
         {
             _states = new Dictionary<GameState, BaseGameState>()
             {
-                {GameState.Intro, new IntroState(ChangeState)},
+                {GameState.Intro, new IntroState(ChangeState, OnGameStart)},
                 {GameState.Player, new PlayerState(ChangeState)},
                 {GameState.EndGame, new EndGameState(ChangeState)}
             };
             _currentState = _states[GameState.Intro];
             _currentState.EnterState();
             
-            Transform player = Instantiate(_playerPrefab);
+            OnGameStart();
+        }
+
+        private void OnGameStart()
+        {
+            Transform player = Instantiate(_playerPrefab); //Get from pool
             _activePlayer = player.GetComponent<Player>();
 
+            IWeapon weapon = new Weapon();
+            IWeaponStrategy basicStrategy = new BasicFire();
+            IWeaponStrategy coneStrategy = new ConeFire();
+            
             IProjectileFactory projectileFactory = new ProjectileFactory(_projectilePrefab);
             IProjectileFactory fastProjectileFactory = new FastProjectileFactory(_projectilePrefab);
-            IWeapon weapon = new Weapon();
-            weapon.SetBulletProvider(projectileFactory);
-            weapon.SetStrategy(new BasicFire());
             
-            IMoveHandler moveHandler = new MovementHandler(player);
+            IMoveHandler moveHandler = new MovementHandler(player, _positionInput, _pressInput);
             
             IPowerUp fastBulletBooster = new BulletSpeedBooster(weapon, projectileFactory, fastProjectileFactory);
             IPowerUp speedBooster = new SpeedBooster(moveHandler);
-            IPowerUp coneShotBooster = new ConeShotBooster(weapon);
+            IPowerUp coneShotBooster = new ConeShotBooster(weapon, basicStrategy, coneStrategy);
             IPowerUp doubleShotBooster = new DoubleShotBooster(weapon);
             IPowerUp shotIntervalBooster = new ShotIntervalBooster(weapon);
             
+            weapon.SetBulletProvider(projectileFactory);
+            weapon.SetStrategy(basicStrategy);
+            
             _activePlayer.InitPlayer(weapon, moveHandler, 
-                fastBulletBooster, speedBooster, coneShotBooster, doubleShotBooster, shotIntervalBooster);
+                fastBulletBooster, speedBooster, 
+                coneShotBooster, doubleShotBooster, shotIntervalBooster);
+            _camera.InitCamera(moveHandler);
         }
         
-        
-
         private void ChangeState(GameState desiredType)
         {
             _currentState.ExitState();

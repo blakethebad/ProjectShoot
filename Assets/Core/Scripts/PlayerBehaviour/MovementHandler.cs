@@ -1,6 +1,8 @@
 ﻿using System;
 using CaseWixot.Core.Scripts.Interfaces;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 namespace CaseWixot.Core.Scripts
 {
@@ -8,44 +10,59 @@ namespace CaseWixot.Core.Scripts
     {
         private Transform _transform;
         private bool _isMoving;
-        private Vector3 _position;
         private Vector3 _dragDir;
         private Vector3 _velocity = Vector3.up;
         private float _speed = 1f;
+        private Vector3 _calculatedVelocity = Vector3.up;
 
-        public MovementHandler(Transform transform)
+        private InputAction _positionInput;
+        private InputAction _pressInput;
+
+        private Vector2 _currentDelta;
+        private float _swipeResistance = 5;
+        
+        public MovementHandler(Transform transform, InputAction positionInput, InputAction pressInput)
         {
             _transform = transform;
+            _positionInput = positionInput;
+            _pressInput = pressInput;
+
+            _positionInput.Enable();
+            _pressInput.Enable();
+
+            _positionInput.performed += (context =>
+            {
+                _currentDelta = _positionInput.ReadValue<Vector2>();
+            });
+            _pressInput.performed += context =>
+            {
+                _isMoving = true;
+            };
+
+            _pressInput.canceled += context =>
+            {
+                _isMoving = false;
+            };
         }
         
         public void Move()
         {
             if (_isMoving)
             {
-                Vector3 pos = Input.mousePosition;
-
-                if (Math.Abs(pos.x - _position.x) > 0.002f || Math.Abs(pos.y - _position.y) > 0.002f)
+                if (Mathf.Abs(_currentDelta.x) > _swipeResistance || Mathf.Abs(_currentDelta.y) > _swipeResistance)
                 {
-                    _dragDir = Input.mousePosition - _position;
-                    _dragDir = _dragDir.normalized;
-                    _velocity = _dragDir * _speed;
+                    if (Mathf.Abs(_currentDelta.normalized.x) > 0.7f)
+                    {
+                        _calculatedVelocity = _currentDelta.normalized.x > 0 ? Vector3.right : Vector3.left;
+                    }
+                    else
+                    {
+                        _calculatedVelocity = _currentDelta.normalized.y > 0 ? Vector3.up : Vector3.down;
+                    }
                 }
+                _velocity = _calculatedVelocity * _speed;
                 _transform.position += _velocity * Time.deltaTime;
-
             }
-            if (Input.GetMouseButtonDown(0))
-            {
-                _isMoving = true;
-                _position = Input.mousePosition;
-
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                _isMoving = false;
-                _velocity = Vector3.up;
-                _position = Vector3.zero;
-            }
-
             _transform.up = _velocity;
         }
 

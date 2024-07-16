@@ -11,12 +11,10 @@ namespace CaseWixot.Core.Scripts.States
 
         public override void EnterState()
         {
-            throw new NotImplementedException();
         }
 
         public override void ExitState()
         {
-            throw new NotImplementedException();
         }
     }
 }
