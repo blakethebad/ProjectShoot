@@ -6,13 +6,15 @@ using UnityEngine.UI;
 
 namespace CaseWixot.Core.Scripts.UI
 {
-    public class PowerUpPanel : UIPanel 
+    public class PowerUpPanel : UIPanel , IPowerUpPublisher
     {
         [SerializeField] private List<Button> _powerUpButtons;
         public static event Action<int> OnPowerUpPressed;
-        
+        public event Action<int> OnPowerUpPressed1; 
+
         public override void Open()
         {
+            gameObject.SetActive(true);
             _powerUpButtons[0].onClick.AddListener((() =>
             {
                 OnPowerUpPressed?.Invoke(0);
@@ -43,6 +45,11 @@ namespace CaseWixot.Core.Scripts.UI
         {
             
         }
+    }
+
+    public interface IPowerUpPublisher
+    {
+        public event Action<int> OnPowerUpPressed1;
     }
 
 

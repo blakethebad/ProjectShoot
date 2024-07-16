@@ -6,6 +6,7 @@ using CaseWixot.Core.Scripts.States;
 using CaseWixot.Core.Scripts.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace CaseWixot.Core.Scripts
 {
@@ -15,12 +16,13 @@ namespace CaseWixot.Core.Scripts
         [SerializeField] private CameraHandler _camera;
         [SerializeField] private Transform _playerPrefab;
         [SerializeField] private Transform _projectilePrefab;
-        [SerializeField] private GameWindow _gameWindow;
+        [SerializeField] private Transform _fastProjectilePrefab;
         [SerializeField] private InputAction _positionInput;
         [SerializeField] private InputAction _pressInput;
 
-        private Player _activePlayer;
+        private List<IActiveEntity> _gameEntities = new List<IActiveEntity>();
 
+        private Player _activePlayer;
         private BaseGameState _currentState;
         private Dictionary<GameState, BaseGameState> _states;
 
@@ -29,26 +31,26 @@ namespace CaseWixot.Core.Scripts
             _states = new Dictionary<GameState, BaseGameState>()
             {
                 {GameState.Intro, new IntroState(ChangeState, OnGameStart)},
-                {GameState.Player, new PlayerState(ChangeState)},
-                {GameState.EndGame, new EndGameState(ChangeState)}
+                {GameState.Player, new PlayerState(ChangeState, this)},
+                {GameState.EndGame, new EndGameState(ChangeState, OnRestart, OnTimerEnd)}
             };
             _currentState = _states[GameState.Intro];
             _currentState.EnterState();
-            
-            OnGameStart();
         }
 
         private void OnGameStart()
         {
+            UIManager.Instance.OpenWindow(WindowType.GameWindow);
             Transform player = Instantiate(_playerPrefab); //Get from pool
             _activePlayer = player.GetComponent<Player>();
+            _gameEntities.Add(_activePlayer);
 
             IWeapon weapon = new Weapon();
             IWeaponStrategy basicStrategy = new BasicFire();
             IWeaponStrategy coneStrategy = new ConeFire();
             
             IProjectileFactory projectileFactory = new ProjectileFactory(_projectilePrefab);
-            IProjectileFactory fastProjectileFactory = new FastProjectileFactory(_projectilePrefab);
+            IProjectileFactory fastProjectileFactory = new FastProjectileFactory(_fastProjectilePrefab);
             
             IMoveHandler moveHandler = new MovementHandler(player, _positionInput, _pressInput);
             
@@ -75,6 +77,20 @@ namespace CaseWixot.Core.Scripts
                 _currentState = desiredState;
             }
             _currentState.EnterState();
+        }
+
+        private void OnRestart()
+        {
+            SceneManager.UnloadSceneAsync(0);
+            SceneManager.LoadScene(0);
+        }
+
+        private void OnTimerEnd()
+        {
+            foreach (IActiveEntity entity in _gameEntities)
+            {
+                entity.Deactivate();
+            }
         }
     }
 }

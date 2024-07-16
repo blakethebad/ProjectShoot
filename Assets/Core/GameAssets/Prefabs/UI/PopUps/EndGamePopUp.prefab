@@ -503,8 +503,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a17f8261564ef9be0aaa519258dd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainMenuButton: {fileID: 0}
-  _retryButton: {fileID: 0}
+  _mainMenuButton: {fileID: 3761476270511307508}
+  _retryButton: {fileID: 1028431420736557524}
 --- !u!1 &8313790257771315840
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,14 +9,12 @@ namespace CaseWixot.Core.Scripts.UI
         [SerializeField] private UIPanel _timerPanel;
         [SerializeField] private UIPanel _scorePanel;
         
-        private void Start()
-        {
-            _powerUpPanel.Open();
-        }
 
         public override void Open()
         {
             _powerUpPanel.Open();
+            _timerPanel.Open();
+            _scorePanel.Open();
         }
 
         public override void Close()

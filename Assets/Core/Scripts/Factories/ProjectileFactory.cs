@@ -16,7 +16,9 @@ namespace CaseWixot.Core.Scripts
         
         public IProjectile Pull()
         {
-            IProjectile projectile = new Projectile(Object.Instantiate(_bulletPrefab), 0.5f, Push);
+            Transform newProjectile = Object.Instantiate(_bulletPrefab);
+            IProjectile projectile = newProjectile.GetComponent<IProjectile>();
+            projectile.Init(0.5f, Push);
             return projectile; //Convert to pool on implementation
         }
 

@@ -7,23 +7,25 @@ namespace CaseWixot.Core.Scripts.UI.PopUps
     public class StartGamePopUp : UIPopUp
     {
         [SerializeField] private Button _tapToStartBtn;
+        private StartGameContext _context;
 
-        private void Start()
+        public override void Show(PopUpContext context = null)
         {
-            Show();
+            _context = (StartGameContext) context;
+            gameObject.SetActive(true);
+            _tapToStartBtn.onClick.AddListener((OnTap));
         }
 
-        public override void Show()
-        {
-            
-            _tapToStartBtn.onClick.AddListener((() =>
-            {
-                Debug.LogError("Tap detected");
-            }));
-        }
 
         public override void Hide()
         {
+            gameObject.SetActive(false);
+        }
+
+        private void OnTap()
+        {
+            _context.OnTapPressed.Invoke();
+            Hide();
         }
     }
 }

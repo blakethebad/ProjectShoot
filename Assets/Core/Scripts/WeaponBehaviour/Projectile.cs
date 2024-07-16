@@ -7,28 +7,35 @@ using Object = UnityEngine.Object;
 
 namespace CaseWixot.Core.Scripts
 {
-    public class Projectile : IProjectile
+    public class Projectile : MonoBehaviour, IProjectile
     {
         private float _speed;
-        private readonly Transform _bulletObj;
-        private readonly Action<IProjectile> _onJourneyComplete;
+        private Action<IProjectile> _onJourneyComplete;
         
-        public Projectile(Transform bulletObj, float speed, Action<IProjectile> onJourneyComplete)
+        public void Init(float speed, Action<IProjectile> onJourneyComplete)
         {
             _speed = speed;
-            _bulletObj = bulletObj;
             _onJourneyComplete = onJourneyComplete;
         }
+
         public void Launch(Vector3 initPos, Vector3 direction)
         {
-            _bulletObj.gameObject.SetActive(true);
-            _bulletObj.position = initPos;
+            gameObject.SetActive(true);
+            transform.position = initPos;
             
             
-            _bulletObj.DOMove(_bulletObj.position + direction * 3, _speed).OnComplete((() =>
+            transform.DOMove(transform.position + direction * 3, _speed).OnComplete((() =>
             {
-                Object.Destroy(_bulletObj.gameObject);
+                Object.Destroy(transform.gameObject);
             }));
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if(other.TryGetComponent(out IHittable hittable))
+            {
+                hittable.TakeHit();
+            }
         }
     }
 }

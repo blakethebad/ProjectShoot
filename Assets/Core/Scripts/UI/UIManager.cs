@@ -11,14 +11,25 @@ namespace CaseWixot.Core.Scripts.UI
         EndGamePopUp,
     }
 
-    public interface IContext
+    public enum WindowType
+    {
+        GameWindow,
+        MainMenu
+    }
+
+    public class PopUpContext
     {
         
     }
 
-    public class StartGameContext : IContext
+    public class StartGameContext : PopUpContext
     {
-        
+        public Action OnTapPressed;
+
+        public StartGameContext(Action onTapPressed)
+        {
+            OnTapPressed = onTapPressed;
+        }
     }
     
     public class UIManager : MonoBehaviour
@@ -46,16 +57,24 @@ namespace CaseWixot.Core.Scripts.UI
             DontDestroyOnLoad(this);
         }
 
-        public void OpenPopUp(PopUpType popUpType)
+        public void OpenWindow(WindowType windowType)
+        {
+            if (windowType == WindowType.GameWindow)
+            {
+                _gameWindow.Open();
+            }
+        }
+
+        public void OpenPopUp(PopUpType popUpType, PopUpContext context = null)
         {
             if (popUpType == PopUpType.StartGamePopUp)
             {
-                _startGamePopUp.Show();
+                _startGamePopUp.Show(context);
             }
 
             if (popUpType == PopUpType.EndGamePopUp)
             {
-                _endGamePopUp.Show();
+                _endGamePopUp.Show(context);
             }
         }
         
