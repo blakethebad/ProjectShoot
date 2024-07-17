@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using CaseWixot.Core.Scripts.UI.PopUps;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace CaseWixot.Core.Scripts.UI
 {
-    public class PowerUpPanel : UIPanel , IPowerUpPublisher
+    public class PowerUpPanel : UIPanel
     {
         [SerializeField] private List<Button> _powerUpButtons;
         public static event Action<int> OnPowerUpPressed;
-        public event Action<int> OnPowerUpPressed1; 
 
         public override void Open()
         {
@@ -46,11 +46,4 @@ namespace CaseWixot.Core.Scripts.UI
             
         }
     }
-
-    public interface IPowerUpPublisher
-    {
-        public event Action<int> OnPowerUpPressed1;
-    }
-
-
 }

@@ -4,28 +4,25 @@ using UnityEngine.UI;
 
 namespace CaseWixot.Core.Scripts.UI.PopUps
 {
-    public class StartGamePopUp : UIPopUp
+    public class StartGamePopUp : UIPopUp, IPopUp
     {
         [SerializeField] private Button _tapToStartBtn;
-        private StartGameContext _context;
 
-        public override void Show(PopUpContext context = null)
+        public static event Action OnTap;
+        
+        public void Show()
         {
-            _context = (StartGameContext) context;
             gameObject.SetActive(true);
-            _tapToStartBtn.onClick.AddListener((OnTap));
+            _tapToStartBtn.onClick.AddListener((() =>
+            {
+                OnTap?.Invoke();
+                Hide();
+            }));
         }
 
-
-        public override void Hide()
+        public void Hide()
         {
             gameObject.SetActive(false);
-        }
-
-        private void OnTap()
-        {
-            _context.OnTapPressed.Invoke();
-            Hide();
         }
     }
 }

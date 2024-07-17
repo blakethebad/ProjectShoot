@@ -1,26 +1,28 @@
 using System;
 using System.Text;
+using CaseWixot.Core.Scripts.States;
+using CaseWixot.Core.Scripts.UI.PopUps;
 using TMPro;
 using UnityEngine;
 
 namespace CaseWixot.Core.Scripts.UI
 {
-    public class TimerPanel : UIPanel, ITimerListener
+    public class TimerPanel : UIPanel
     {
         [SerializeField] private TextMeshProUGUI _timerText;
 
-        public static Action<int> OnTimerChange;
         private StringBuilder _builder;
         
         public override void Open()
         {
+            PlayerState.OnTimerUpdated += OnTimerChanged;
             _builder = new StringBuilder();
             gameObject.SetActive(true);
-            OnTimerChange += OnTimerChanged;
         }
 
         public override void Close()
         {
+            PlayerState.OnTimerUpdated -= OnTimerChanged;
         }
 
         public void OnTimerChanged(int remaining)
@@ -34,10 +36,5 @@ namespace CaseWixot.Core.Scripts.UI
             _builder.Append(seconds.ToString("D2"));
             _timerText.text = _builder.ToString();
         }
-    }
-
-    public interface ITimerListener
-    {
-        void OnTimerChanged(int remaining);
     }
 }

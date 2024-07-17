@@ -19,7 +19,8 @@ namespace CaseWixot.Core.Scripts.States
         }
         
         public abstract void EnterState();
-        public abstract void ExitState();
+
+        public virtual void ExitState() { }
     }
     
 }

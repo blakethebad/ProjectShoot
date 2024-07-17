@@ -1,12 +1,15 @@
+using System;
 using System.Text;
+using CaseWixot.Core.Scripts.UI.PopUps;
 using TMPro;
 using UnityEngine;
 
 namespace CaseWixot.Core.Scripts.UI
 {
-    public class ScorePanel : UIPanel, IScoreListener
+    public class ScorePanel : UIPanel
     {
         [SerializeField] private TextMeshProUGUI _scoreText;
+
         public override void Open()
         {
             gameObject.SetActive(true);
@@ -14,16 +17,8 @@ namespace CaseWixot.Core.Scripts.UI
 
         public override void Close()
         {
-        }
-
-        void IScoreListener.OnScoreChanged(int current)
-        {
-            _scoreText.text = current.ToString(); //TODO:String Builder Later
+            _scoreText.text = 34.ToString(); //TODO:String Builder Later
         }
     }
-
-    public interface IScoreListener
-    {
-        void OnScoreChanged(int current);
-    }
+    
 }

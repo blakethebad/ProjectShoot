@@ -1,51 +1,37 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.UI;
 
 namespace CaseWixot.Core.Scripts.UI.PopUps
 {
-    public class EndGameContext : PopUpContext
-    {
-        public Action OnMainMenuPressed;
-        public Action OnRetryPressed;
-
-        public EndGameContext(Action onMainMenuPressed, Action onRetryPressed)
-        {
-            OnMainMenuPressed = onMainMenuPressed;
-            OnRetryPressed = onRetryPressed;
-        }
-    }
-    
-    public class EndGamePopUp : UIPopUp
+    public class EndGamePopUp : UIPopUp, IPopUp
     {
         [SerializeField] private Button _mainMenuButton;
         [SerializeField] private Button _retryButton;
-        private EndGameContext _context;
-        
-        public override void Show(PopUpContext endGameContext)
+
+        public static event Action OnMainMenuPressed;
+        public static event Action OnRetryPressed; 
+
+        public void Show()
         {
-            _context = (EndGameContext)endGameContext;
+            _mainMenuButton.onClick.AddListener((() =>
+            {
+                OnMainMenuPressed?.Invoke();
+                Hide();
+            }));
+            
+            _retryButton.onClick.AddListener((() =>
+            {
+                OnRetryPressed?.Invoke();
+                Hide();
+            }));
             gameObject.SetActive(true);
-            _mainMenuButton.onClick.AddListener(OnMainMenuPressed);
-            _retryButton.onClick.AddListener(OnRetryPressed);
         }
 
-
-        public override void Hide()
+        public void Hide()
         {
             gameObject.SetActive(false);
-        }
-
-        private void OnMainMenuPressed()
-        {
-            _context.OnMainMenuPressed.Invoke();
-            Hide();
-        }
-
-        private void OnRetryPressed()
-        {
-            _context.OnRetryPressed.Invoke();
-            Hide();
         }
     }
 }

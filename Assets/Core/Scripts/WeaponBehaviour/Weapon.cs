@@ -12,6 +12,12 @@ namespace CaseWixot.Core.Scripts
         private float _shootInterval = 2f;
         private bool _isDoubleShot = false;
 
+        public Weapon(IWeaponStrategy strategy, IProjectileFactory bulletFactory)
+        {
+            _projectileFactory = bulletFactory;
+            _currentStrategy = strategy;
+        }
+
         void IWeapon.SetBulletProvider(IProjectileFactory projectileFactory) => _projectileFactory = projectileFactory;
         void IWeapon.SetStrategy(IWeaponStrategy strategy) => _currentStrategy = strategy;
         void IWeapon.SetBulletInterval(float interval) => _shootInterval = interval;

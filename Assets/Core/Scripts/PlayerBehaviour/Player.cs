@@ -1,11 +1,12 @@
 ﻿using CaseWixot.Core.Scripts.Interfaces;
 using CaseWixot.Core.Scripts.Services;
 using CaseWixot.Core.Scripts.UI;
+using CaseWixot.Core.Scripts.UI.PopUps;
 using UnityEngine;
 
 namespace CaseWixot.Core.Scripts
 {
-    public class Player : MonoBehaviour, IActiveEntity, IPoolObject
+    public class Player : MonoBehaviour, IActiveEntity
     {
         private IWeapon _weapon;
         private IMoveHandler _moveHandler;
@@ -34,10 +35,11 @@ namespace CaseWixot.Core.Scripts
         {
             _ownedPowerUps[index].Enable();
         }
-
+        
         public void Deactivate()
         {
             _isActive = false;
+            PowerUpPanel.OnPowerUpPressed -= OnPowerUpPressed;
             StopCoroutine(_weaponRoutine);
         }
     }
@@ -46,5 +48,4 @@ namespace CaseWixot.Core.Scripts
     {
         void Deactivate();
     }
-
 }
