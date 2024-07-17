@@ -1,41 +1,45 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using CaseWixot.Core.Scripts.Interfaces;
+using CaseWixot.Core.Scripts.PowerUps;
+using DG.Tweening;
 using UnityEngine;
 
 namespace CaseWixot.Core.Scripts
 {
     public class Weapon : IWeapon
     {
+        private IModifiableStat<float> _fireInterval;
         private IProjectileFactory _projectileFactory;
-        private IWeaponStrategy _currentStrategy;
-        private float _shootInterval = 2f;
-        private bool _isDoubleShot = false;
+        private IWeaponStrategy _weaponStrategy;
 
-        public Weapon(IWeaponStrategy strategy, IProjectileFactory bulletFactory)
+        public Weapon(IModifiableStat<float> interval, IWeaponStrategy initialStrategy, IProjectileFactory initialFactory)
         {
-            _projectileFactory = bulletFactory;
-            _currentStrategy = strategy;
+            _fireInterval = interval;
+            _weaponStrategy = initialStrategy;
+            _projectileFactory = initialFactory;
         }
 
-        void IWeapon.SetBulletProvider(IProjectileFactory projectileFactory) => _projectileFactory = projectileFactory;
-        void IWeapon.SetStrategy(IWeaponStrategy strategy) => _currentStrategy = strategy;
-        void IWeapon.SetBulletInterval(float interval) => _shootInterval = interval;
-        void IWeapon.SetDoubleShot(bool isDoubleShot) => _isDoubleShot = isDoubleShot;
-
-        public IEnumerator Shoot(IMoveHandler moveHandler)
+        void IWeapon.ChangeBulletFactory(IProjectileFactory projectileFactory) => _projectileFactory = projectileFactory;
+        
+        public void AddStrategy(IWeaponStrategy strategy)
         {
-            yield return new WaitForSeconds(_shootInterval); //Will be modified
+            if(_weaponStrategy.HandleNew(strategy))
+                return;
 
-            _currentStrategy.Execute(_projectileFactory, moveHandler.GetPosition(), moveHandler.GetDirection());
+            _weaponStrategy = strategy;
+        }
 
-            if (_isDoubleShot)
-            {
-                yield return new WaitForSeconds(0.1f);
-                _currentStrategy.Execute(_projectileFactory, moveHandler.GetPosition(), moveHandler.GetDirection());
-            }
-
-            yield return Shoot(moveHandler);
+        public IEnumerator StartShoot(IMoveComponent moveComponent)
+        {
+            yield return new WaitForSeconds(_fireInterval.Get());
+            _weaponStrategy.Execute(_projectileFactory, moveComponent.GetPosition(), moveComponent.GetDirection());
+            yield return StartShoot(moveComponent);
         }
     }
+
+
 }

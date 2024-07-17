@@ -26,7 +26,7 @@ namespace CaseWixot.Core.Scripts
             
             transform.DOMove(transform.position + direction * 3, _speed).OnComplete((() =>
             {
-                Object.Destroy(transform.gameObject);
+                _onJourneyComplete.Invoke(this);
             }));
         }
 

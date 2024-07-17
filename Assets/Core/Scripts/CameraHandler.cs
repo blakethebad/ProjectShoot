@@ -7,13 +7,13 @@ namespace CaseWixot.Core.Scripts
     public class CameraHandler : MonoBehaviour
     {
         [SerializeField] private float _distance = -10f;
-        private IMoveHandler _moveHandler;
+        private IMoveComponent _moveComponent;
         private Vector3 _position = default;
         private bool _startedFollowing = false;
 
-        public void InitCamera(IMoveHandler moveHandler)
+        public void InitCamera(IMoveComponent moveComponent)
         {
-            _moveHandler = moveHandler;
+            _moveComponent = moveComponent;
             _position.z = _distance;
             _startedFollowing = true;
         }
@@ -23,8 +23,8 @@ namespace CaseWixot.Core.Scripts
             if(_startedFollowing == false)
                 return;
             
-            _position.x = _moveHandler.GetPosition().x;
-            _position.y = _moveHandler.GetPosition().y;
+            _position.x = _moveComponent.GetPosition().x;
+            _position.y = _moveComponent.GetPosition().y;
 
             transform.position = _position;
         }

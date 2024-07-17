@@ -10,14 +10,14 @@ namespace CaseWixot.Core.Scripts.UI
     {
         [SerializeField] private TextMeshProUGUI _scoreText;
 
-        public override void Open()
+        public override void Open(WindowDefinition windowDefinition)
         {
             gameObject.SetActive(true);
         }
 
         public override void Close()
         {
-            _scoreText.text = 34.ToString(); //TODO:String Builder Later
+            gameObject.SetActive(false);
         }
     }
     

@@ -2,7 +2,6 @@
 {
     public interface IPowerUp
     {
-        void Enable();
-        void Disable();
+        void Toggle();
     }
 }

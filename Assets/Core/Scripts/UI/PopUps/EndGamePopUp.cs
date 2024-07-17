@@ -1,37 +1,55 @@
 ﻿using System;
+using CaseWixot.Core.Scripts.PowerUps;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UI;
 
 namespace CaseWixot.Core.Scripts.UI.PopUps
 {
-    public class EndGamePopUp : UIPopUp, IPopUp
+    public class EndGamePopUpDefinition : PopUpDefinition
+    {
+        public Action OnMainMenuPressed;
+        public Action OnRetryPressed;
+
+        public EndGamePopUpDefinition(Action onMainMenuPressed, Action onRetryPressed)
+        {
+            OnMainMenuPressed = onMainMenuPressed;
+            OnRetryPressed = onRetryPressed;
+        }
+    }
+    public class EndGamePopUp : UIPopUp
     {
         [SerializeField] private Button _mainMenuButton;
         [SerializeField] private Button _retryButton;
 
-        public static event Action OnMainMenuPressed;
-        public static event Action OnRetryPressed; 
+        private EndGamePopUpDefinition _definition;
 
-        public void Show()
+        public override void Show(PopUpDefinition popUpDefinition)
         {
-            _mainMenuButton.onClick.AddListener((() =>
-            {
-                OnMainMenuPressed?.Invoke();
-                Hide();
-            }));
+            _definition = ((EndGamePopUpDefinition)popUpDefinition);
+            _mainMenuButton.onClick.AddListener(OnMainMenuPressed);
+            _retryButton.onClick.AddListener(OnRetryPressed);
             
-            _retryButton.onClick.AddListener((() =>
-            {
-                OnRetryPressed?.Invoke();
-                Hide();
-            }));
             gameObject.SetActive(true);
         }
 
-        public void Hide()
+        private void OnMainMenuPressed()
+        {
+            _definition.OnMainMenuPressed.Invoke();
+            Hide();
+        }
+
+        private void OnRetryPressed()
+        {
+            _definition.OnRetryPressed.Invoke();
+            Hide();
+        }
+
+        public override void Hide()
         {
             gameObject.SetActive(false);
+            _mainMenuButton.onClick.RemoveListener(OnMainMenuPressed);
+            _retryButton.onClick.RemoveListener(OnRetryPressed);
         }
     }
 }

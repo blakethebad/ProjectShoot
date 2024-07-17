@@ -1,13 +1,13 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using CaseWixot.Core.Scripts.PowerUps;
 
 namespace CaseWixot.Core.Scripts.Interfaces
 {
     public interface IWeapon
     {
-        IEnumerator Shoot(IMoveHandler moveHandler);
-        void SetBulletProvider(IProjectileFactory projectileFactory);
-        void SetStrategy(IWeaponStrategy strategy);
-        void SetBulletInterval(float interval);
-        void SetDoubleShot(bool isDoubleShot);
+        IEnumerator StartShoot(IMoveComponent moveComponent);
+        void ChangeBulletFactory(IProjectileFactory projectileFactory);
+        void AddStrategy(IWeaponStrategy strategy);
     }
 }

@@ -1,51 +1,39 @@
-﻿using CaseWixot.Core.Scripts.Interfaces;
-using CaseWixot.Core.Scripts.Services;
-using CaseWixot.Core.Scripts.UI;
-using CaseWixot.Core.Scripts.UI.PopUps;
+﻿using System;
+using CaseWixot.Core.Scripts.Interfaces;
+using CaseWixot.Core.Scripts.PowerUps;
 using UnityEngine;
 
 namespace CaseWixot.Core.Scripts
 {
-    public class Player : MonoBehaviour, IActiveEntity
+    public class Player : MonoBehaviour, IPowerUpHolder
     {
         private IWeapon _weapon;
-        private IMoveHandler _moveHandler;
+        private IMoveComponent _moveComponent;
+
         private IPowerUp[] _ownedPowerUps;
-
-        private Coroutine _weaponRoutine;
-        private bool _isActive = true;
-
-        public void InitPlayer(IWeapon weapon, IMoveHandler moveHandler, params IPowerUp[] powerUps)
+        
+        public void InitPlayer(IWeapon weapon, IMoveComponent moveComponent, IPowerUp[] powerUps)
         {
             _weapon = weapon;
-            _moveHandler = moveHandler;
+            _moveComponent = moveComponent;
             _ownedPowerUps = powerUps;
 
-            PowerUpPanel.OnPowerUpPressed += OnPowerUpPressed;
-            _weaponRoutine = StartCoroutine(_weapon.Shoot(moveHandler));
+            StartCoroutine(_weapon.StartShoot(moveComponent));
         }
         
         private void Update()
         {
-            if(!_isActive) return;
-            _moveHandler.Move();
+            _moveComponent.Move();
         }
 
-        private void OnPowerUpPressed(int index)
+        public void OnPowerUpToggled(int index)
         {
-            _ownedPowerUps[index].Enable();
-        }
-        
-        public void Deactivate()
-        {
-            _isActive = false;
-            PowerUpPanel.OnPowerUpPressed -= OnPowerUpPressed;
-            StopCoroutine(_weaponRoutine);
+            _ownedPowerUps[index].Toggle();
         }
     }
 
-    public interface IActiveEntity
+    public interface IPowerUpHolder
     {
-        void Deactivate();
+        void OnPowerUpToggled(int index);
     }
 }

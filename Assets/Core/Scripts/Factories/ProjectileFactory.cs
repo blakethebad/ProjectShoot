@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CaseWixot.Core.Scripts.Interfaces;
+using CaseWixot.Core.Scripts.Services;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -7,24 +8,27 @@ namespace CaseWixot.Core.Scripts
 {
     public class ProjectileFactory : IProjectileFactory
     {
-        private readonly Transform _bulletPrefab;
+        private IPoolService _objectPool;
 
-        public ProjectileFactory(Transform bulletPrefab)
+        public ProjectileFactory(IPoolService poolService)
         {
-            _bulletPrefab = bulletPrefab;
+            _objectPool = poolService;
         }
         
         public IProjectile Pull()
         {
-            Transform newProjectile = Object.Instantiate(_bulletPrefab);
-            IProjectile projectile = newProjectile.GetComponent<IProjectile>();
-            projectile.Init(0.5f, Push);
-            return projectile; //Convert to pool on implementation
+            GameObject gameObject = _objectPool.GetObject("pref_projectile");
+            IProjectile newProjectile = gameObject.GetComponent<IProjectile>();
+            
+            newProjectile.Init(0.5f, (projectile =>
+            {
+                _objectPool.ReleaseObject(gameObject, "pref_projectile");
+            }));
+            return newProjectile; //Convert to pool on implementation
         }
 
         public void Push(IProjectile projectile)
         {
-            Debug.LogError($"projectile is pushed");
         }
     }
 }
