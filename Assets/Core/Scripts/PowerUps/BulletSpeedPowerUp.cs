@@ -2,7 +2,7 @@
 
 namespace CaseWixot.Core.Scripts.PowerUps
 {
-    public class BulletSpeedPowerUp : Booster<IWeapon> 
+    public class BulletSpeedPowerUp : PowerUp<IWeapon> 
     {
         private IProjectileFactory _regularFactory;
         private IProjectileFactory _fastProjectileFactory;

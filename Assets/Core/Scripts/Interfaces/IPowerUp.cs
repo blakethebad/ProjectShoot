@@ -3,5 +3,8 @@
     public interface IPowerUp
     {
         void Toggle();
+        bool IsActive { get; }
+        void Enable();
+        void Disable();
     }
 }

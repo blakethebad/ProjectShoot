@@ -4,13 +4,13 @@ using CaseWixot.Core.Scripts.Interfaces;
 
 namespace CaseWixot.Core.Scripts.PowerUps
 {
-    public abstract class Booster<T> : IPowerUp
+    public abstract class PowerUp<T> : IPowerUp
     {
         protected readonly T ModifiedEntity;
         private readonly int _index;
         private Action _onToggle;
         
-        protected Booster(T modifiableEntity, int index)
+        protected PowerUp(T modifiableEntity, int index)
         {
             ModifiedEntity = modifiableEntity;
             _onToggle = Enable;
@@ -21,10 +21,13 @@ namespace CaseWixot.Core.Scripts.PowerUps
         {
             _onToggle.Invoke();
         }
-        
+
+        public bool IsActive { get; private set; } = false;
+
         public virtual void Enable()
         {
-            EventMediator.PowerUpEnableEvent.Raise(new PowerUpEvent()
+            IsActive = true;
+            EventMediator.PowerUpEnableEvent.Raise(new PowerUpToggleEvent()
             {
                 EnabledIndex = _index
             });
@@ -33,7 +36,8 @@ namespace CaseWixot.Core.Scripts.PowerUps
 
         public virtual void Disable()
         {
-            EventMediator.PowerUpDisableEvent.Raise(new PowerUpEvent()
+            IsActive = false;
+            EventMediator.PowerUpDisableEvent.Raise(new PowerUpToggleEvent()
             {
                 DisabledIndex = _index
             });

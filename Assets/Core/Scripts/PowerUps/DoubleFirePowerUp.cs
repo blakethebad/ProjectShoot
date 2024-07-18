@@ -2,9 +2,9 @@
 
 namespace CaseWixot.Core.Scripts.PowerUps
 {
-    public class DoubleFirePowerUp : Booster<IWeapon>
+    public class DoubleFirePowerUp : PowerUp<IWeapon>
     {
-        private IWeaponStrategy _strategy;
+        private IDecorator _strategy;
         public DoubleFirePowerUp(IWeapon modifiableEntity, int index) : base(modifiableEntity, index)
         {
         }
@@ -12,14 +12,16 @@ namespace CaseWixot.Core.Scripts.PowerUps
         public override void Enable()
         {
             base.Enable();
-            ModifiedEntity.AddStrategy(new DoubleFire());
+            _strategy = new DoubleFire();
+            IWeaponStrategy strategy = (IWeaponStrategy)_strategy;
+            ModifiedEntity.AddStrategy(strategy);
         }
 
         public override void Disable()
         {
             base.Disable();
-            ModifiedEntity.AddStrategy(_strategy);
-
+            IWeaponStrategy strategy = _strategy.ReleaseDecorated();
+            ModifiedEntity.AddStrategy(strategy);
         }
     }
 

@@ -5,19 +5,19 @@ using UnityEngine;
 
 namespace CaseWixot.Core.Scripts
 {
-    public class Player : MonoBehaviour, IPowerUpHolder
+    public class Player : MonoBehaviour
     {
         private IWeapon _weapon;
         private IMoveComponent _moveComponent;
-
-        private IPowerUp[] _ownedPowerUps;
+        private IPowerUpDeck _powerUpDeck;
         
-        public void InitPlayer(IWeapon weapon, IMoveComponent moveComponent, IPowerUp[] powerUps)
+        public void InitPlayer(IWeapon weapon, IMoveComponent moveComponent, IPowerUpDeck powerUpDeck)
         {
             _weapon = weapon;
             _moveComponent = moveComponent;
-            _ownedPowerUps = powerUps;
-
+            _powerUpDeck = powerUpDeck;
+            
+            _powerUpDeck.Init();
             StartCoroutine(_weapon.StartShoot(moveComponent));
         }
         
@@ -25,15 +25,5 @@ namespace CaseWixot.Core.Scripts
         {
             _moveComponent.Move();
         }
-
-        public void OnPowerUpToggled(int index)
-        {
-            _ownedPowerUps[index].Toggle();
-        }
-    }
-
-    public interface IPowerUpHolder
-    {
-        void OnPowerUpToggled(int index);
     }
 }

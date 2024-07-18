@@ -12,7 +12,7 @@ namespace CaseWixot.Core.Scripts
 {
     public class Weapon : IWeapon
     {
-        private IModifiableStat<float> _fireInterval;
+        private readonly IModifiableStat<float> _fireInterval;
         private IProjectileFactory _projectileFactory;
         private IWeaponStrategy _weaponStrategy;
 

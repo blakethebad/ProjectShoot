@@ -2,7 +2,7 @@
 
 namespace CaseWixot.Core.Scripts.PowerUps
 {
-    public class SpeedPowerUp : Booster<IModifiableStat<int>>
+    public class SpeedPowerUp : PowerUp<IModifiableStat<int>>
     {
         public SpeedPowerUp(IModifiableStat<int> modifiableEntity, int index) : base(modifiableEntity, index)
         {

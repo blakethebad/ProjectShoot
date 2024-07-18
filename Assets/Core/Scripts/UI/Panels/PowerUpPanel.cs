@@ -10,23 +10,6 @@ using UnityEngine.UI;
 
 namespace CaseWixot.Core.Scripts.UI
 {
-    public class WindowDefinition
-    {
-    }
-
-    public class GameWindowDefinition : WindowDefinition
-    {
-        public Action<int> PowerUpButtonPressed;
-        public Action OnExitButtonPressed;
-
-        public GameWindowDefinition(Action<int> onPowerUpPressed, Action onExitPressed)
-        {
-            PowerUpButtonPressed = onPowerUpPressed;
-            OnExitButtonPressed = onExitPressed;
-        }
-    }
-    
-    
     public class PowerUpPanel : UIPanel
     {
         [SerializeField] private List<Button> _powerUpButtons;
@@ -41,32 +24,38 @@ namespace CaseWixot.Core.Scripts.UI
             _onPowerUpPressed = ((GameWindowDefinition)windowDefinition).PowerUpButtonPressed;
             EventMediator.PowerUpEnableEvent.Bind(OnPowerUpEnable);
             EventMediator.PowerUpDisableEvent.Bind(OnPowerUpDisable);
+            EventMediator.PowerUpAddedEvent.Bind(OnPowerUpAdded);
+        }
 
-            foreach (Button button in _powerUpButtons)
+        void OnPowerUpAdded(PowerUpDeckEvent powerUpDeckEvent)
+        {
+            _powerUpButtons[powerUpDeckEvent.Index].gameObject.SetActive(true);
+            _powerUpButtons[powerUpDeckEvent.Index].onClick.AddListener((() =>
             {
-                button.onClick.AddListener((() =>
-                {
-                    int index = _powerUpButtons.IndexOf(button);
-                    _onPowerUpPressed.Invoke(index);
-                }));
-            }
+                _onPowerUpPressed.Invoke(powerUpDeckEvent.Index);
+            }));
         }
 
-        void OnPowerUpEnable(PowerUpEvent powerUpEvent)
+        void OnPowerUpEnable(PowerUpToggleEvent powerUpToggleEvent)
         {
-            _powerUpButtons[powerUpEvent.EnabledIndex].image.color = _selectedColor;
+            _powerUpButtons[powerUpToggleEvent.EnabledIndex].image.color = _selectedColor;
         }
 
-        void OnPowerUpDisable(PowerUpEvent powerUpEvent)
+        void OnPowerUpDisable(PowerUpToggleEvent powerUpToggleEvent)
         {
-            _powerUpButtons[powerUpEvent.DisabledIndex].image.color = _defaultColor;
+            _powerUpButtons[powerUpToggleEvent.DisabledIndex].image.color = _defaultColor;
         }
         
         public override void Close()
         {
             gameObject.SetActive(false);
+        }
+
+        private void OnDestroy()
+        {
             EventMediator.PowerUpEnableEvent.Unbind(OnPowerUpEnable);
             EventMediator.PowerUpDisableEvent.Unbind(OnPowerUpDisable);
+            EventMediator.PowerUpAddedEvent.Unbind(OnPowerUpAdded);
         }
     }
 }

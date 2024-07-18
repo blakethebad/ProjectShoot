@@ -46,9 +46,13 @@ namespace CaseWixot.Core.Scripts
             powerUps[1] = new FireIntervalPowerUp(fireInterval, 1);
             powerUps[2] = new BulletSpeedPowerUp(weapon, 2, projectileFactory, fastProjectileFactory);
             powerUps[3] = new ConeFirePowerUp(weapon, 3);
+            powerUps[4] = new DoubleFirePowerUp(weapon, 4);
 
-            _windowProvider.OpenWindow(WindowKey.GameWindow, new GameWindowDefinition(player.OnPowerUpToggled, OnExitButton));
-            player.InitPlayer(weapon, moveComponent, powerUps);
+            Debug.LogError(powerUps.Length);
+            IPowerUpDeck powerUpDeck = new PowerUpDeck(powerUps);
+
+            _windowProvider.OpenWindow(WindowKey.GameWindow, new GameWindowDefinition(powerUpDeck.OnPowerUpToggled, OnExitButton));
+            player.InitPlayer(weapon, moveComponent, powerUpDeck);
             _camera.InitCamera(moveComponent);
         }
 
