@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: d27b9f72779746f46b81feed82461c21
   m_SerializeEntries:
-  - m_GUID: 7a3324cb4c11b634ab5161c522eeeb25
-    m_Address: pref_fastProjectile
+  - m_GUID: 31703a92ee990e244839578de945c04d
+    m_Address: FastProjectile
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameAsset

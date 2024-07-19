@@ -51,11 +51,9 @@ namespace ProjectShoot.Core.UI.Panels
             foreach (var powerUpButton in _powerUpButtons)
             {
                 powerUpButton.image.color = _defaultColor;
+                powerUpButton.onClick.RemoveAllListeners();
             }
-        }
-
-        private void OnDestroy()
-        {
+            
             GameEvents.PowerUpEnableEvent.Unbind(OnPowerUpEnable);
             GameEvents.PowerUpDisableEvent.Unbind(OnPowerUpDisable);
             GameEvents.PowerUpAddedEvent.Unbind(OnPowerUpAdded);
