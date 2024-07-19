@@ -1,32 +1,18 @@
-﻿using System;
-using CaseWixot.Core.Scripts.PowerUps;
-using UnityEngine;
-using UnityEngine.Pool;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace CaseWixot.Core.Scripts.UI.PopUps
 {
-    public class EndGamePopUpDefinition : PopUpDefinition
-    {
-        public Action OnMainMenuPressed;
-        public Action OnRetryPressed;
-
-        public EndGamePopUpDefinition(Action onMainMenuPressed, Action onRetryPressed)
-        {
-            OnMainMenuPressed = onMainMenuPressed;
-            OnRetryPressed = onRetryPressed;
-        }
-    }
     public class EndGamePopUp : UIPopUp
     {
         [SerializeField] private Button _mainMenuButton;
         [SerializeField] private Button _retryButton;
 
-        private EndGamePopUpDefinition _definition;
+        private EndGamePopUpContext _context;
 
-        public override void Show(PopUpDefinition popUpDefinition)
+        public override void Show(PopUpContext popUpContext)
         {
-            _definition = ((EndGamePopUpDefinition)popUpDefinition);
+            _context = ((EndGamePopUpContext)popUpContext);
             _mainMenuButton.onClick.AddListener(OnMainMenuPressed);
             _retryButton.onClick.AddListener(OnRetryPressed);
             
@@ -35,13 +21,13 @@ namespace CaseWixot.Core.Scripts.UI.PopUps
 
         private void OnMainMenuPressed()
         {
-            _definition.OnMainMenuPressed.Invoke();
+            _context.OnMainMenuPressed.Invoke();
             Hide();
         }
 
         private void OnRetryPressed()
         {
-            _definition.OnRetryPressed.Invoke();
+            _context.OnRetryPressed.Invoke();
             Hide();
         }
 

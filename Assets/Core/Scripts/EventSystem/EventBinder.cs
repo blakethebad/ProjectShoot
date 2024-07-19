@@ -2,7 +2,7 @@
 
 namespace CaseWixot.Core.Scripts.EventSystem
 {
-    public class EventBinder<T> : IEventBinder<T> where T : IEvent
+    public sealed class EventBinder<T> : IEventBinder<T> where T : IEvent
     {
         private Action<T> _onEvent = raised => { };
         

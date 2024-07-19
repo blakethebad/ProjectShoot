@@ -1,48 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using CaseWixot.Core.Scripts.UI;
-using CaseWixot.Core.Scripts.UI.PopUps;
 using UnityEngine;
-using UnityEngine.U2D;
-using Object = UnityEngine.Object;
 
 namespace CaseWixot.Core.Scripts.Services
 {
-    public interface IPoolService : IService
+    public sealed class PoolService : IPoolService
     {
-        public T GetAssetWithComponent<T>(object key);
-        public void ReleaseObject(GameObject gameObject, object key);
-        public GameObject GetObject(object key);
-    }
-    
-    public class PoolService : IPoolService
-    {
-        private StringBuilder _popBuilder;
-        private StringBuilder _releaseBuilder;
+        private readonly StringBuilder _popBuilder;
+        private readonly StringBuilder _releaseBuilder;
+        private readonly IAssetService _assetService;
+        private readonly Transform _poolTransform;
 
         private Dictionary<string, Stack<GameObject>> _poolElements;
-        private Dictionary<string, GameObject> _objects; // IAssetService will provide these so; TEMP
-        private Transform _poolTransform;
 
-        private bool _isInitialized = false;
-
-        public PoolService(Transform poolTransform, Dictionary<string, GameObject> poolElements)
+        public PoolService(IAssetService assetService, Transform poolTransform)
         {
             _poolTransform = poolTransform;
-            _objects = poolElements;
+            _assetService = assetService;
             _popBuilder = new StringBuilder();
             _releaseBuilder = new StringBuilder();
         }
-                
-        public void Init(Action onComplete)
-        {
-            if (_isInitialized)
-            {
-                onComplete.Invoke();
-                return;
-            }
 
+        void IService.Init(Action onComplete)
+        {
             _poolElements = new Dictionary<string, Stack<GameObject>>(10);
             PrewarmPool();
             onComplete.Invoke();
@@ -50,23 +31,17 @@ namespace CaseWixot.Core.Scripts.Services
 
         private void PrewarmPool()
         {
-            foreach (var poolElement in _objects)
-            {
-                if (!_poolElements.ContainsKey(poolElement.Key))
-                {
-                    _poolElements.Add(poolElement.Key, new Stack<GameObject>());
-                }
+            _poolElements.Add(GameAssets.Projectile.ToString(), new Stack<GameObject>());
+            _poolElements.Add(GameAssets.FastProjectile.ToString(), new Stack<GameObject>());
 
-                for (int i = 0; i < 2; i++)
-                {
-                    GameObject obj = Object.Instantiate(poolElement.Value, _poolTransform, true);
-                    obj.SetActive(false);
-                    _poolElements[poolElement.Key].Push(obj);
-                }
+            for (int i = 0; i < 3; i++)
+            {
+                _poolElements[GameAssets.FastProjectile.ToString()].Push(_assetService.Instantiate(GameAssets.FastProjectile, _poolTransform));
+                _poolElements[GameAssets.Projectile.ToString()].Push(_assetService.Instantiate(GameAssets.Projectile, _poolTransform));
             }
         }
 
-        public void ReleaseObject(GameObject gameObject, object key)
+        void IPoolService.ReleaseObject(GameObject gameObject, object key)
         {
             gameObject.SetActive(false);
             
@@ -77,13 +52,11 @@ namespace CaseWixot.Core.Scripts.Services
             {
                 throw new Exception($"Pool with key : {key} cannot be found");
             }
-
-            Debug.LogError("Released");
+            
             _poolElements[_releaseBuilder.ToString()].Push(gameObject);
-
         }
 
-        public GameObject GetObject(object key)
+        GameObject IPoolService.GetObject(object key)
         {
             _popBuilder.Clear();
             _popBuilder.Append(key);
@@ -92,36 +65,28 @@ namespace CaseWixot.Core.Scripts.Services
                 throw new Exception($"Asset with key : {key} cannot be found");
             }
 
-            GameObject obj;
+            var poolInstance = _poolElements[_popBuilder.ToString()].Count > 0 ? 
+                _poolElements[_popBuilder.ToString()].Pop() : 
+                _assetService.Instantiate(_popBuilder.ToString(), _poolTransform);
 
-            if (_poolElements[_popBuilder.ToString()].Count > 0)
-            {
-                obj = _poolElements[_popBuilder.ToString()].Pop();
-            }
-            else
-            {
-                obj = Object.Instantiate(_objects[_popBuilder.ToString()], _poolTransform, true);
-            }
-
-            return obj;
+            return poolInstance;
         }
 
-        public T GetAssetWithComponent<T>(object key)
+        T IPoolService.GetAssetWithComponent<T>(object key)
         {
             _popBuilder.Clear();
             _popBuilder.Append(key);
             if (!_poolElements.ContainsKey(_popBuilder.ToString()))
             {
-                throw new Exception($"Asset with key : {key} cannot be found");
+                throw new Exception($"Asset with key {key} cannot be found");
             }
 
-            return _poolElements[_popBuilder.ToString()].Pop().GetComponent<T>();
+            var poolInstance = _poolElements[_popBuilder.ToString()].Count > 0 ? 
+                _poolElements[_popBuilder.ToString()].Pop().GetComponent<T>() : 
+                _assetService.Instantiate(_popBuilder.ToString(), _poolTransform).GetComponent<T>();
+
+            return poolInstance;
         }
 
-    }
-
-    public interface IService
-    {
-        void Init(Action onComplete);
     }
 }

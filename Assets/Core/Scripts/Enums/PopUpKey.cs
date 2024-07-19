@@ -2,7 +2,7 @@
 {
     public enum PopUpKey
     {
-        StartGame,
-        EndGame
+        StartGamePopUp,
+        EndGamePopUp
     }
 }

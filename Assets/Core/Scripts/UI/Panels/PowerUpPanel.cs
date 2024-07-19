@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CaseWixot.Core.Scripts.EventSystem.Events;
-using CaseWixot.Core.Scripts.PowerUps;
-using CaseWixot.Core.Scripts.UI.PopUps;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace CaseWixot.Core.Scripts.UI
@@ -18,13 +14,13 @@ namespace CaseWixot.Core.Scripts.UI
 
         private Action<int> _onPowerUpPressed;
         
-        public override void Open(WindowDefinition windowDefinition)
+        public override void Open(WindowContext windowContext)
         {
             gameObject.SetActive(true);
-            _onPowerUpPressed = ((GameWindowDefinition)windowDefinition).PowerUpButtonPressed;
-            EventMediator.PowerUpEnableEvent.Bind(OnPowerUpEnable);
-            EventMediator.PowerUpDisableEvent.Bind(OnPowerUpDisable);
-            EventMediator.PowerUpAddedEvent.Bind(OnPowerUpAdded);
+            _onPowerUpPressed = ((GameWindowContext)windowContext).PowerUpButtonPressed;
+            GameEvents.PowerUpEnableEvent.Bind(OnPowerUpEnable);
+            GameEvents.PowerUpDisableEvent.Bind(OnPowerUpDisable);
+            GameEvents.PowerUpAddedEvent.Bind(OnPowerUpAdded);
         }
 
         void OnPowerUpAdded(PowerUpDeckEvent powerUpDeckEvent)
@@ -53,9 +49,9 @@ namespace CaseWixot.Core.Scripts.UI
 
         private void OnDestroy()
         {
-            EventMediator.PowerUpEnableEvent.Unbind(OnPowerUpEnable);
-            EventMediator.PowerUpDisableEvent.Unbind(OnPowerUpDisable);
-            EventMediator.PowerUpAddedEvent.Unbind(OnPowerUpAdded);
+            GameEvents.PowerUpEnableEvent.Unbind(OnPowerUpEnable);
+            GameEvents.PowerUpDisableEvent.Unbind(OnPowerUpDisable);
+            GameEvents.PowerUpAddedEvent.Unbind(OnPowerUpAdded);
         }
     }
 }

@@ -5,14 +5,4 @@
         public int EnabledIndex;
         public int DisabledIndex;
     }
-
-    public struct PowerUpDeckEvent : IEvent
-    {
-        public int Index;
-
-        public PowerUpDeckEvent(int index)
-        {
-            Index = index;
-        }
-    }
 }
