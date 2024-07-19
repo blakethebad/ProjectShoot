@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UIAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 256
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 55fa02a97f683de4e846b1aa1bd816bf, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 7ed2db904622bd8478004ec111e0ae6e: 21300000
+    - 1d08e8c1a09917c42ac250d0e160c977: 21300000
+    - 7d08fda5c35350d4e8981063bb02f72c: 21300000
+    - 0484d12f0a16ce34b87aa636950c6556: 21300000
+    - 11e60e8fd97a93a489e6d0033c1119c0: 21300000
+    - 1b14b6efa12ae3d47a155b041eb8f79f: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 7ed2db904622bd8478004ec111e0ae6e, type: 3}
+  - {fileID: 21300000, guid: 1d08e8c1a09917c42ac250d0e160c977, type: 3}
+  - {fileID: 21300000, guid: 7d08fda5c35350d4e8981063bb02f72c, type: 3}
+  - {fileID: 21300000, guid: 0484d12f0a16ce34b87aa636950c6556, type: 3}
+  - {fileID: 21300000, guid: 11e60e8fd97a93a489e6d0033c1119c0, type: 3}
+  - {fileID: 21300000, guid: 1b14b6efa12ae3d47a155b041eb8f79f, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - sprt_jet
+  - sprt_coneArrow
+  - sprt_speed
+  - sprt_fastBullet
+  - sprt_double
+  - sprt_button
+  m_RenderDataMap: {}
+  m_Tag: UIAtlas
+  m_IsVariant: 0

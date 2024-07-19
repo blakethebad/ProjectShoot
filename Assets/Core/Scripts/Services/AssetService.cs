@@ -76,7 +76,7 @@ namespace CaseWixot.Core.Scripts.Services
             return (T)_assets[_builder.ToString()];
         }
 
-        GameObject IAssetService.Instantiate(object key, Transform transform, bool isActive = false)
+        GameObject IAssetService.Instantiate(object key, Transform transform, bool isActive)
         {
             _builder.Clear();
             _builder.Append(key);
@@ -88,6 +88,7 @@ namespace CaseWixot.Core.Scripts.Services
             GameObject prefab = (GameObject)_assets[key.ToString()];
             GameObject instance = Object.Instantiate(prefab, transform, true);
             instance.SetActive(isActive);
+            instance.transform.position = Vector3.zero;
             return instance;
 
         }

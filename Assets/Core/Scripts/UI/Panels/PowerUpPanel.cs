@@ -45,6 +45,10 @@ namespace CaseWixot.Core.Scripts.UI
         public override void Close()
         {
             gameObject.SetActive(false);
+            foreach (var powerUpButton in _powerUpButtons)
+            {
+                powerUpButton.image.color = _defaultColor;
+            }
         }
 
         private void OnDestroy()

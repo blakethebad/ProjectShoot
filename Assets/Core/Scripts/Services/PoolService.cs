@@ -44,7 +44,8 @@ namespace CaseWixot.Core.Scripts.Services
         void IPoolService.ReleaseObject(GameObject gameObject, object key)
         {
             gameObject.SetActive(false);
-            
+            gameObject.transform.position = Vector3.zero;
+
             _releaseBuilder.Clear();
             _releaseBuilder.Append(key);
 

@@ -53,14 +53,10 @@ namespace CaseWixot.Core.Scripts
             IModifiableStat<float> fireInterval = new FireIntervalStat(2f);
             IWeapon weapon = new Weapon(fireInterval, new BasicFire(), projectileFactory);
 
-            IPowerUp[] powerUps = new IPowerUp[5];
-            powerUps[0] = new SpeedPowerUp(speed, 0);
-            powerUps[1] = new FireIntervalPowerUp(fireInterval, 1);
-            powerUps[2] = new BulletSpeedPowerUp(weapon, 2, projectileFactory, fastProjectileFactory);
-            powerUps[3] = new ConeFirePowerUp(weapon, 3);
-            powerUps[4] = new DoubleFirePowerUp(weapon, 4);
+            IPowerUpFactory powerUpFactory =
+                new PowerUpFactory(weapon, speed, fireInterval, projectileFactory, fastProjectileFactory);
 
-            IPowerUpDeck powerUpDeck = new PowerUpDeck(powerUps);
+            IPowerUpDeck powerUpDeck = new PowerUpDeck(powerUpFactory.GenerateAll());
 
             _windowProvider.OpenWindow(WindowKey.GameWindow, new GameWindowContext(powerUpDeck.OnPowerUpToggled, OnExitButton));
             player.InitPlayer(weapon, moveComponent, powerUpDeck);
@@ -82,6 +78,5 @@ namespace CaseWixot.Core.Scripts
         private void ReturnToMainMenu() => _loader.RemoveGame(this);
 
         private void ReloadGame() => _loader.ReloadGame(this);
-
     }
 }

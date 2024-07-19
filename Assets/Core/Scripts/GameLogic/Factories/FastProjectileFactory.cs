@@ -16,7 +16,7 @@ namespace CaseWixot.Core.Scripts
         {
             IProjectile newProjectile = _objectPool.GetAssetWithComponent<IProjectile>(GameAssets.FastProjectile);
 
-            newProjectile.Init(0.25f, Push);
+            newProjectile.Init(0.45f, Push);
             return newProjectile;
         }
 
