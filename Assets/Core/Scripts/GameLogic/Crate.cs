@@ -1,7 +1,7 @@
-﻿using CaseWixot.Core.Scripts.Interfaces;
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
     public class Crate : MonoBehaviour, IHittable

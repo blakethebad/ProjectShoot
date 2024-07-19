@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using CaseWixot.Core.Scripts.EventSystem.Events;
-using CaseWixot.Core.Scripts.Interfaces;
+using ProjectShoot.Core.EventSystem;
+using ProjectShoot.Core.EventSystem.Events;
+using ProjectShoot.Core.GameLogic.Interfaces;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.PlayerBehaviour
 {
     public sealed class PowerUpDeck : IPowerUpDeck
     {
@@ -10,10 +11,11 @@ namespace CaseWixot.Core.Scripts
         private bool[] _isPowerUpEnabled;
         private int _maxActiveCount;
 
-        private List<IPowerUp> _activeList = new List<IPowerUp>();
+        private List<IPowerUp> _activeList;
 
         public PowerUpDeck(IPowerUp[] powerUps)
         {
+            _activeList = new List<IPowerUp>(_maxActiveCount);
             _maxActiveCount = 3;
             _deck = powerUps;
         }

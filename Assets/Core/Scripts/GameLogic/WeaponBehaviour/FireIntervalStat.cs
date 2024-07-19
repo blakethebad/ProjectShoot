@@ -1,6 +1,6 @@
-using CaseWixot.Core.Scripts.PowerUps;
+using ProjectShoot.Core.GameLogic.Interfaces;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.WeaponBehaviour
 {
     public class FireIntervalStat : IModifiableStat<float>
     {

@@ -1,8 +1,9 @@
-﻿using CaseWixot.Core.Scripts.Interfaces;
-using CaseWixot.Core.Scripts.Services;
+﻿using ProjectShoot.Core.Enums;
+using ProjectShoot.Core.GameLogic.Interfaces;
+using ProjectShoot.Core.Services.Interfaces;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.Factories
 {
     public class FastProjectileFactory : IProjectileFactory
     {

@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
-using CaseWixot.Core.Scripts.Interfaces;
-using CaseWixot.Core.Scripts.PowerUps;
-using CaseWixot.Core.Scripts.Services;
-using CaseWixot.Core.Scripts.UI;
-using CaseWixot.Core.Scripts.UI.PopUps;
+using ProjectShoot.Core.Enums;
+using ProjectShoot.Core.GameLogic.Factories;
+using ProjectShoot.Core.GameLogic.Interfaces;
+using ProjectShoot.Core.GameLogic.PlayerBehaviour;
+using ProjectShoot.Core.GameLogic.WeaponBehaviour;
+using ProjectShoot.Core.GameLogic.WeaponBehaviour.Strategies;
+using ProjectShoot.Core.Services.Interfaces;
+using ProjectShoot.Core.UI.PopUps.Context;
+using ProjectShoot.Core.UI.Windows.Context;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic
 {
     public sealed class ShootGame : MonoBehaviour
     {

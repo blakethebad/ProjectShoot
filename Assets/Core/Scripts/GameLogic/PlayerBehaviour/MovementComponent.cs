@@ -1,9 +1,8 @@
-﻿using CaseWixot.Core.Scripts.Interfaces;
-using CaseWixot.Core.Scripts.PowerUps;
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.PlayerBehaviour
 {
     public sealed class MovementComponent : IMoveComponent
     {

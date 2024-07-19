@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using CaseWixot.Core.Scripts.Interfaces;
-using CaseWixot.Core.Scripts.PowerUps;
+using ProjectShoot.Core.GameLogic.Interfaces;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.WeaponBehaviour
 {
     public class Weapon : IWeapon
     {

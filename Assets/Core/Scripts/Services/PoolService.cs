@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ProjectShoot.Core.Enums;
+using ProjectShoot.Core.Services.Interfaces;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts.Services
+namespace ProjectShoot.Core.Services
 {
     public sealed class PoolService : IPoolService
     {

@@ -1,8 +1,8 @@
-﻿using CaseWixot.Core.Scripts.Interfaces;
-using DG.Tweening;
+﻿using DG.Tweening;
+using ProjectShoot.Core.GameLogic.Interfaces;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts.PowerUps
+namespace ProjectShoot.Core.GameLogic.WeaponBehaviour.Strategies
 {
     public class DoubleFire : IWeaponDecorator
     {

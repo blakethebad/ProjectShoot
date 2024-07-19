@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CaseWixot.Core.Scripts.Services
+namespace ProjectShoot.Core.Services.Interfaces
 {
     public interface IService
     {

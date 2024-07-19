@@ -1,6 +1,7 @@
-﻿using CaseWixot.Core.Scripts.UI.PopUps;
+﻿using ProjectShoot.Core.Enums;
+using ProjectShoot.Core.UI.PopUps;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.Services.Interfaces
 {
     public interface IPopUpProvider
     {

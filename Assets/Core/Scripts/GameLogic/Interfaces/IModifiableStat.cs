@@ -1,4 +1,4 @@
-﻿namespace CaseWixot.Core.Scripts.PowerUps
+﻿namespace ProjectShoot.Core.GameLogic.Interfaces
 {
     public interface IModifiableStat<T>
     {

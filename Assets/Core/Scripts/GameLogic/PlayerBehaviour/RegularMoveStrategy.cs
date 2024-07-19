@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
+using UnityEngine;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.PlayerBehaviour
 {
     public class RegularMoveStrategy : IMoveStrategy
     {

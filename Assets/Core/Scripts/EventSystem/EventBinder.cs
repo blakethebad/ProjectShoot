@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CaseWixot.Core.Scripts.EventSystem
+namespace ProjectShoot.Core.EventSystem
 {
     public sealed class EventBinder<T> : IEventBinder<T> where T : IEvent
     {

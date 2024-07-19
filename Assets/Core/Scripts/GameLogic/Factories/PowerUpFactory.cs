@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using CaseWixot.Core.Scripts.Interfaces;
-using CaseWixot.Core.Scripts.PowerUps;
-using UnityEngine.Profiling;
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
+using ProjectShoot.Core.GameLogic.PowerUps;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.Factories
 {
     public class PowerUpFactory : IPowerUpFactory
     {

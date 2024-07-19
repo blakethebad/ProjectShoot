@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CaseWixot.Core.Scripts.UI.PopUps
+namespace ProjectShoot.Core.UI.PopUps
 {
     public abstract class PopUpContext
     {

@@ -1,7 +1,7 @@
-﻿using CaseWixot.Core.Scripts.Interfaces;
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts.PowerUps
+namespace ProjectShoot.Core.GameLogic.WeaponBehaviour.Strategies
 {
     public class ConeFire : IWeaponStrategy
     {

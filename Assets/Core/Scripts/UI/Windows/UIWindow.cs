@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CaseWixot.Core.Scripts.UI
+namespace ProjectShoot.Core.UI.Windows
 {
     public abstract class UIWindow : MonoBehaviour
     {

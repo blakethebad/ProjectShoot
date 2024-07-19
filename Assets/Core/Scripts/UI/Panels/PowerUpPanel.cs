@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using CaseWixot.Core.Scripts.EventSystem.Events;
+using ProjectShoot.Core.EventSystem;
+using ProjectShoot.Core.EventSystem.Events;
+using ProjectShoot.Core.UI.Windows;
+using ProjectShoot.Core.UI.Windows.Context;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CaseWixot.Core.Scripts.UI
+namespace ProjectShoot.Core.UI.Panels
 {
     public class PowerUpPanel : UIPanel
     {

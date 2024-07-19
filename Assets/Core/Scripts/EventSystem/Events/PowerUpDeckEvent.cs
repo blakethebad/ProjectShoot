@@ -1,4 +1,4 @@
-﻿namespace CaseWixot.Core.Scripts.EventSystem.Events
+﻿namespace ProjectShoot.Core.EventSystem.Events
 {
     public struct PowerUpDeckEvent : IEvent
     {

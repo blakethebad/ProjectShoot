@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CaseWixot.Core.Scripts.UI.PopUps
+namespace ProjectShoot.Core.UI.PopUps.Context
 {
     public class EndGamePopUpContext : PopUpContext
     {

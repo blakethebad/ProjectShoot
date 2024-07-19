@@ -1,4 +1,4 @@
-namespace CaseWixot.Core.Scripts.Services
+namespace ProjectShoot.Core.Enums
 {
     public enum GameAssets
     {

@@ -1,7 +1,6 @@
-﻿using CaseWixot.Core.Scripts.EventSystem;
-using CaseWixot.Core.Scripts.EventSystem.Events;
+﻿using ProjectShoot.Core.EventSystem.Events;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.EventSystem
 {
     public static class GameEvents
     {

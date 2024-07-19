@@ -1,4 +1,4 @@
-﻿namespace CaseWixot.Core.Scripts.Interfaces
+﻿namespace ProjectShoot.Core.GameLogic.Interfaces
 {
     public interface IPowerUp
     {

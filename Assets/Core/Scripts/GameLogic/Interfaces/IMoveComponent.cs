@@ -1,7 +1,6 @@
-﻿using CaseWixot.Core.Scripts.PowerUps;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CaseWixot.Core.Scripts.Interfaces
+namespace ProjectShoot.Core.GameLogic.Interfaces
 {
     public interface IMoveComponent
     {

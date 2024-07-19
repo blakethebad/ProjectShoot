@@ -1,7 +1,8 @@
 ﻿using System;
+using ProjectShoot.Core.UI.Windows;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts.UI
+namespace ProjectShoot.Core.UI.Panels
 {
     public abstract class UIPanel : MonoBehaviour
     {

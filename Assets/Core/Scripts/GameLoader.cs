@@ -1,8 +1,10 @@
-﻿using CaseWixot.Core.Scripts.Services;
-using CaseWixot.Core.Scripts.UI;
+﻿using ProjectShoot.Core.Enums;
+using ProjectShoot.Core.GameLogic;
+using ProjectShoot.Core.Services.Interfaces;
+using ProjectShoot.Core.UI.Windows.Context;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core
 {
     public sealed class GameLoader : MonoBehaviour
     {

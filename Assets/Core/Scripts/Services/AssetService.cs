@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectShoot.Core.Services.Interfaces;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using Object = UnityEngine.Object;
 
-namespace CaseWixot.Core.Scripts.Services
+namespace ProjectShoot.Core.Services
 {
     public sealed class AssetService : IAssetService
     {

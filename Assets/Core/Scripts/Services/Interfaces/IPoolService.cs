@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CaseWixot.Core.Scripts.Services
+namespace ProjectShoot.Core.Services.Interfaces
 {
     public interface IPoolService : IService
     {

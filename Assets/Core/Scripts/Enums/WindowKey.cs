@@ -1,4 +1,4 @@
-﻿namespace CaseWixot.Core.Scripts
+﻿namespace ProjectShoot.Core.Enums
 {
     public enum WindowKey
     {

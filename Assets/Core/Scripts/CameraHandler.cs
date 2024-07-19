@@ -1,8 +1,7 @@
-﻿using System;
-using CaseWixot.Core.Scripts.Interfaces;
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core
 {
     public class CameraHandler : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.Interfaces
 {
     public interface IMoveStrategy
     {

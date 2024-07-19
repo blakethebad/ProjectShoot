@@ -1,6 +1,7 @@
-﻿using CaseWixot.Core.Scripts.UI;
+﻿using ProjectShoot.Core.Enums;
+using ProjectShoot.Core.UI.Windows;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.Services.Interfaces
 {
     public interface IWindowProvider
     {

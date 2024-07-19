@@ -1,6 +1,7 @@
-﻿using CaseWixot.Core.Scripts.Interfaces;
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
+using ProjectShoot.Core.GameLogic.WeaponBehaviour.Strategies;
 
-namespace CaseWixot.Core.Scripts.PowerUps
+namespace ProjectShoot.Core.GameLogic.PowerUps
 {
     public class ConeFirePowerUp : PowerUp<IWeapon>
     {

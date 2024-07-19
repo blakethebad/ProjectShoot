@@ -1,4 +1,4 @@
-﻿namespace CaseWixot.Core.Scripts.EventSystem
+﻿namespace ProjectShoot.Core.EventSystem
 {
     public interface IEvent
     {

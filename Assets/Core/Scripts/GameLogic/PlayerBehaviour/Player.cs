@@ -1,7 +1,7 @@
-﻿using CaseWixot.Core.Scripts.Interfaces;
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.PlayerBehaviour
 {
     public sealed class Player : MonoBehaviour, IActiveEntity
     {

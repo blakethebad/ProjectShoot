@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using CaseWixot.Core.Scripts.Services;
-using CaseWixot.Core.Scripts.UI.PopUps;
+using ProjectShoot.Core.Enums;
+using ProjectShoot.Core.Services.Interfaces;
+using ProjectShoot.Core.UI.PopUps;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.Services
 {
     public class PopUpProvider : IPopUpProvider
     {

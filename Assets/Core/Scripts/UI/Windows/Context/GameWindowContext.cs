@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CaseWixot.Core.Scripts.UI
+namespace ProjectShoot.Core.UI.Windows.Context
 {
     public class GameWindowContext : WindowContext
     {

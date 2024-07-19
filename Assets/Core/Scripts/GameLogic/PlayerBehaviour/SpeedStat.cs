@@ -1,4 +1,6 @@
-﻿namespace CaseWixot.Core.Scripts.PowerUps
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
+
+namespace ProjectShoot.Core.GameLogic.PlayerBehaviour
 {
     public class SpeedStat : IModifiableStat<int>
     {

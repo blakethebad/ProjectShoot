@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using ProjectShoot.Core.UI.Panels;
+using ProjectShoot.Core.UI.Windows.Context;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace CaseWixot.Core.Scripts.UI
+namespace ProjectShoot.Core.UI.Windows
 {
     public abstract class WindowContext
     {

@@ -1,6 +1,6 @@
-﻿using CaseWixot.Core.Scripts.Interfaces;
+﻿using ProjectShoot.Core.GameLogic.Interfaces;
 
-namespace CaseWixot.Core.Scripts.PowerUps
+namespace ProjectShoot.Core.GameLogic.PowerUps
 {
     public class BulletSpeedPowerUp : PowerUp<IWeapon> 
     {

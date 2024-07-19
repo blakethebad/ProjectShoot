@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts.Interfaces
+namespace ProjectShoot.Core.GameLogic.Interfaces
 {
     public interface IProjectile
     {

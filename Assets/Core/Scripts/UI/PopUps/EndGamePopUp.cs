@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using ProjectShoot.Core.UI.PopUps.Context;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace CaseWixot.Core.Scripts.UI.PopUps
+namespace ProjectShoot.Core.UI.PopUps
 {
     public class EndGamePopUp : UIPopUp
     {

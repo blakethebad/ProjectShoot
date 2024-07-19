@@ -1,9 +1,9 @@
 ﻿using System;
-using CaseWixot.Core.Scripts.Interfaces;
 using DG.Tweening;
+using ProjectShoot.Core.GameLogic.Interfaces;
 using UnityEngine;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core.GameLogic.WeaponBehaviour
 {
     public class Projectile : MonoBehaviour, IProjectile
     {

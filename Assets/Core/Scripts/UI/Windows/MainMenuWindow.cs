@@ -1,8 +1,9 @@
 ﻿using System;
+using ProjectShoot.Core.UI.Windows.Context;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CaseWixot.Core.Scripts.UI
+namespace ProjectShoot.Core.UI.Windows
 {
     public class MainMenuWindow : UIWindow
     {

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using CaseWixot.Core.Scripts.Services;
-using CaseWixot.Core.Scripts.UI.PopUps;
+﻿using ProjectShoot.Core.EventSystem;
+using ProjectShoot.Core.Services;
+using ProjectShoot.Core.Services.Interfaces;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
 
-namespace CaseWixot.Core.Scripts
+namespace ProjectShoot.Core
 {
     public class GameInitializer : MonoBehaviour
     {
